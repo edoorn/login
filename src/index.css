@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
 code {
@@ -28,4 +29,25 @@ code {
   overflow: visible;
   height: auto;
   width: auto;
+}
+
+.header {
+  background-color: aquamarine;
+  height: 3rem;
+}
+
+.page__title {
+  text-align: center;
+}
+
+.panel--form {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 2rem;
+  border: 2px solid grey;
+}
+
+.label.visible {
+  display: block;
+  margin: .25rem 0;
 }

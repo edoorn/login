@@ -10,10 +10,15 @@ import Login from "./Login";
 function View(props) {
   const { view, title } = props;
 
+  /**
+   * Render the different views as children
+   */
   const renderView = (view) => {
     switch(view) {
       case "login":
         return <Login />
+      default:
+        return null;
     }
   }
 
