@@ -5,30 +5,20 @@ import Announce from "../common/Announce";
 import Password from "../common/Password";
 import Username from "../common/Username";
 
-// helpers
-import { getPasswordErrors } from "../../helpers/helpers";
-
 class Login extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      passwordErrors: []
+      passwordErrors: [],
+      usernameError: false,
+      submitted: false
     };
   }
 
-  validatePassword = (e) => {
-    const value = e.target.value;
-
-    const passwordErrors = getPasswordErrors(value);
-
-    this.setState({
-      passwordErrors
-    });
-  };
-
   validateSubmission = (e) => {
-    // console.log(e);
+    // Get Password errors 
+    // Get Required errors
   };
 
   handleSubmit = (e) => {
@@ -46,14 +36,16 @@ class Login extends React.Component {
         >
           <Username
             id="id-usr"
-            label="Username or Email"
+            label="Username"
+            error={this.state.usernameError}
+            parent={this}
           />
           <Password
             id="id-pass"
             label="Password"
             helpText="Password must include one capital letter, one lower case letter, and at least one number."
             errors={this.state.passwordErrors}
-            validateInline={this.validatePassword}
+            parent={this}
           />
           <button>Submit</button>
         </form>

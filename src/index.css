@@ -52,7 +52,7 @@ code {
   margin: .25rem 0;
 }
 
-[aria-invalid] {
+[aria-invalid="true"] {
   border: 2px solid red;
   border-left: 5px solid red;
 }

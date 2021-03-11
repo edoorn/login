@@ -7,6 +7,12 @@
 export function getPasswordErrors(value) {
   const errors = [];
 
+  if (value === '') {
+    errors.push('This field is required');
+    
+    return errors;
+  }
+
   // Test cases
   const uppercase = value.match(/[A-Z]/g);
   const lowercase = value.match(/[a-z]/g);
@@ -36,11 +42,16 @@ export function getPasswordErrors(value) {
  * @param {string} mode - Aria-live politeness
  */
 export function announce(text, mode) {
+  let liveRegion;
+
   if (mode === 'assertive') {
-    const liveRegion = document.getElementById('app-live-assertive');
-    liveRegion.innerText = text;
+    liveRegion = document.getElementById('app-live-assertive');
   } else if (mode === 'polite') {
-    const liveRegion = document.getElementById('app-live-polite');
+    liveRegion = document.getElementById('app-live-polite');
+  }
+
+  // Only update live region if the text has changed
+  if (liveRegion && liveRegion.innerText !== text) {
     liveRegion.innerText = text;
   }
 }

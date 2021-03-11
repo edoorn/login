@@ -5,7 +5,7 @@
  * with methods, props and state.
  */
 
- function Announce(props) {
+ function Announce() {
 
   return (
     <div>
