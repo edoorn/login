@@ -37,6 +37,17 @@ export function getPasswordErrors(value) {
 }
 
 /**
+ * getLoginError
+ * @param {string} username
+ * @param {password} password
+ * 
+ * @returns {boolean}
+ */
+export function getLoginError(username, password) {
+  return username !== 'level' || password !== 'Access123';
+}
+
+/**
  * announce
  * @param {string} text - Message to announce
  * @param {string} mode - Aria-live politeness

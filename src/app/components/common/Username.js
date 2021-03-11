@@ -3,6 +3,8 @@
  *
  * @property {string} id - Unique machine name
  * @property {string} label - Label text
+ * @property {boolean} error - Is this required field filled out?
+ * @property {function} update - Update the value of this field
  * @property {string} [className] - Add an additional style class
  * @property {string} [helpText] - Instructions and additional context
  * @property {boolean} [hideLabel] - Make a label visually hidden
@@ -20,25 +22,36 @@
     this.state = {
       touched: false,
     };
+
+    this.input = React.createRef();
   }
 
-  validate = (e) => {
+  validate(callback) {
     const { parent } = this.props;
-    const value = e.target.value;
-
-    if (value === '') {
-      announce("Username field is required", "polite");
-    } else {
-      announce('', 'polite');
-    }
+    const value = this.input.current.value;
 
     parent.setState({
       usernameError: value === ''
+    }, () => {
+      if (callback) {
+        callback();
+      }
     });
   };
 
+  handleBlur = () => {
+    const callback = () => {
+      if (this.props.error) {
+        announce("Username field is required", "polite");
+      } else {
+        announce('', 'polite');
+      }
+    }
+    this.validate(callback);
+  }
+
   render() {
-    const { id, className, error, label, helpText, hideLabel } = this.props;
+    const { id, className, error, label, helpText, hideLabel, update } = this.props;
 
     return (
       <div className="username">
@@ -51,6 +64,7 @@
         </label>
         <input
           id={id}
+          ref={this.input}
           className="input username__input"
           name={id}
           required
@@ -60,7 +74,11 @@
           {...(helpText && {
             "aria-describedby": `${id}-help`
           })}
-          onBlur={this.validate}
+          onFocus={() => {
+            this.setState({ touched: true })
+          }}
+          onBlur={this.handleBlur}
+          onChange={() => update(id, this.input.current.value)}
         />
 
         {error && (
