@@ -3,13 +3,15 @@
  *
  * @property {string} id - Unique machine name
  * @property {string} label - Label text
+ * @property {object} errors -  
+ * @property {string} helpText - Instructions for password validation
  * @property {string} [className] - Add an additional style class
- * @property {string} [helpText] - Instructions and additional context
  * @property {boolean} [hideLabel] - Make a label visually hidden
+ * @property {function} validateInline - Password validation before submit
  */
 
 function Password(props) {
-  const { id, className, label, helpText, hideLabel } = props;
+  const { id, className, errors, label, helpText, hideLabel, validateInline} = props;
 
   return (
     <div className="password">
@@ -25,18 +27,18 @@ function Password(props) {
         className="input password__input"
         name={id}
         required
+        aria-invalid={errors.length > 0 ? "true" : "false"}
         aria-required="true"
         type="password"
-        {...(helpText && {
-          "aria-describedby": `${id}-help`
-        })}
+        aria-describedby={`${id}-help`}
+        onBlur={validateInline}
       />
 
-      {helpText &&
-        <div className="note">
-          <p id={`${id}-help`} className="note__content">{helpText}</p>
-        </div>
-      }
+      <div className="help">
+        <p id={`${id}-help`} className="help__content">
+          {helpText}
+        </p>
+      </div>
     </div>
   );
 }
