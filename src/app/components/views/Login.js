@@ -2,7 +2,6 @@ import React from "react";
 import { getLoginError } from "../../helpers/helpers";
 
 // Components
-import Announce from "../common/Announce";
 import Password from "../common/Password";
 import Username from "../common/Username";
 
@@ -97,10 +96,6 @@ class Login extends React.Component {
           />
           <button type="submit">Submit</button>
         </form>
-        <p>
-          Don't have an account? <a href="#">Sign up</a> today
-        </p>
-        <Announce />
       </div>
     );
   }

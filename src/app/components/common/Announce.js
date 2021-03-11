@@ -10,7 +10,6 @@
   return (
     <div>
       <div
-        className="app-live-assertive"
         role="log"
         className="visually-hidden"
         aria-live="assertive"
