@@ -1,7 +1,7 @@
 # Accessible Login
 This is a demo of an accessible login form. The form exists in the context of a larger web page. Forms like this rarely exist outside of the broader context of a web page, so I've included a few landmarks and a bit of navigation.
 
-Get a closer look at the [source code](https://github.com/edoorn/login) on Github. Test the [live demo](https://edoorn.github.io/login/) hosted on Github Pages. 
+Get a closer look at the [source code](https://github.com/edoorn/login/tree/main) on Github. Test the [live demo](https://edoorn.github.io/login/) hosted on Github Pages. 
 ## Features
 - Inline error display on the input's 'blur' event
 - Live screen reader announcements on the input's 'blur' event
