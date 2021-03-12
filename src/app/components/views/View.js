@@ -6,6 +6,7 @@
  */
 
 import Login from "./Login";
+import Success from "./Success";
 
 function View(props) {
   const { view, title } = props;
@@ -17,6 +18,8 @@ function View(props) {
     switch(view) {
       case "login":
         return <Login />
+      case "success":
+        return <Success />
       default:
         return null;
     }

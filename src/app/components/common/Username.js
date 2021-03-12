@@ -53,8 +53,19 @@
   render() {
     const { id, className, error, label, helpText, hideLabel, update } = this.props;
 
+    let aria_describedby = '';
+    if (helpText) {
+      aria_describedby += `${id}-help`;
+    } 
+    if (helpText && error) {
+      aria_describedby += ' ';
+    }
+    if (error) {
+      aria_describedby += `${id}-error`;
+    }
+    
     return (
-      <div className="username">
+      <div className="field username">
         <label
           id={`${id}-lbl`}
           className={`label username__label ${hideLabel ? "visually-hidden" : "visible"} ${className ? className : ""}`}
@@ -62,6 +73,13 @@
         >
           {label}
         </label>
+          
+        {helpText &&
+          <div className="note help">
+            <p id={`${id}-help`} className="note__content">{helpText}</p>
+          </div>
+        }
+        
         <input
           id={id}
           ref={this.input}
@@ -71,8 +89,8 @@
           aria-required="true"
           aria-invalid={error}
           type="text"
-          {...(helpText && {
-            "aria-describedby": `${id}-help`
+          {...(aria_describedby && {
+            "aria-describedby": aria_describedby
           })}
           onFocus={() => {
             this.setState({ touched: true })
@@ -82,14 +100,8 @@
         />
 
         {error && (
-          <div>Error: This field is required</div>
+          <p id={`${id}-error`} className="error error--inline">Error: This field is required</p>
         )}
-  
-        {helpText &&
-          <div className="note">
-            <p id={`${id}-help`} className="note__content">{helpText}</p>
-          </div>
-        }
       </div>
     );
   }

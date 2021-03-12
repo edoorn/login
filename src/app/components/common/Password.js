@@ -57,8 +57,11 @@ class Password extends React.Component {
   render() {
     const { id, className, errors, label, helpText, hideLabel, update } = this.props;
 
+    let aria_describedby = `${id}-help`;
+    aria_describedby += errors.length > 0 ? ` ${id}-error` : '';
+
     return (
-      <div className="password">
+      <div className="field password">
         <label
           id={`${id}-lbl`}
           className={`label password__label ${
@@ -68,6 +71,13 @@ class Password extends React.Component {
         >
           {label}
         </label>
+
+        <div className="note help">
+          <p id={`${id}-help`} className="help__content">
+            {helpText}
+          </p>
+        </div>
+
         <input
           id={id}
           ref={this.input}
@@ -77,7 +87,9 @@ class Password extends React.Component {
           aria-invalid={errors.length > 0 ? "true" : "false"}
           aria-required="true"
           type="password"
-          aria-describedby={`${id}-help`}
+          {...(aria_describedby && {
+            "aria-describedby": aria_describedby
+          })}
           onFocus={() => {
             this.setState({ touched: true });
           }}
@@ -85,14 +97,9 @@ class Password extends React.Component {
           onChange={() => update(id, this.input.current.value)}
         />
         {errors.length > 0 && (
-          <div>{`Error: ${errors.join(", ")}`}</div>
+          <p id={`${id}-error`} className="error error--inline">{`Error: ${errors.join(", ")}`}</p>
         )}
 
-        <div className="help">
-          <p id={`${id}-help`} className="help__content">
-            {helpText}
-          </p>
-        </div>
       </div>
     );
   }

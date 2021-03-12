@@ -1,5 +1,6 @@
 import React from "react";
 import { getLoginError } from "../../helpers/helpers";
+import { withRouter } from "react-router-dom";
 
 // Components
 import Password from "../common/Password";
@@ -12,7 +13,7 @@ class Login extends React.Component {
     this.state = {
       passwordErrors: [],
       usernameError: false,
-      submitted: false
+      renderErrorBlock: false
     };
 
     this.login = React.createRef();
@@ -21,22 +22,31 @@ class Login extends React.Component {
   }
 
   complete = () => {
-    console.log('SUCCESS!');
+    this.props.history.push("/success");
+
   }
 
-  renderError = (type) => {
-    switch (type) {
-      case "fields":
-        // Page error: list fields
-        console.log('Some fields are missing or wrong.')
-        break;
-      case "login":
-        // Page error: list fields
-        console.log('You entered the wrong login info.')
-        break;
-      default:
-        break;
-    }
+  renderErrorBlock = (type) => {
+    this.setState({
+      renderErrorBlock: true
+    }, () => {
+      const block = document.getElementById('login-form-error');
+      const p = block.querySelector('p');
+
+      // Allow for lots of variation in error message here
+      switch (type) {
+        case "fields":
+          p.innerText = 'Some fields contain errors.';
+          break;
+        case "login":
+          p.innerText = 'Username and password are incorrect.';
+          break;
+        default:
+          break;
+      }
+
+      block.focus();
+    });
   }
 
   update = (id, value) => {
@@ -50,27 +60,32 @@ class Login extends React.Component {
     const loginError = getLoginError(username, password);
 
     if (usernameError || passwordErrors.length) {
-      this.renderError("fields");
+      this.renderErrorBlock("fields");
     } else if (loginError) {
-      this.renderError("login");
+      this.renderErrorBlock("login");
     } else {
-      this.complete();
+      this.setState({
+        renderErrorBlock: false
+      }, () => {
+        this.complete();
+      });
     }
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.password.current.validate();
     this.username.current.validate();
-    this.setState({
-      submitted: true
-    });
-    this.validateForm();
+    this.password.current.validate(this.validateForm);
   };
 
   render() {
     return (
       <div className="panel panel--form">
+        {this.state.renderErrorBlock &&
+          <div id="login-form-error" tabIndex="-1" className="note error error--block">
+            <p></p>
+          </div>
+        }
         <form
           ref={this.login}
           className="form form--center"
@@ -94,11 +109,11 @@ class Login extends React.Component {
             update={this.update}
             parent={this}
           />
-          <button type="submit">Submit</button>
+          <button type="submit" className="btn">Log In</button>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+export default withRouter(Login);
