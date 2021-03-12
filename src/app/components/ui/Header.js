@@ -6,7 +6,7 @@ function Header() {
       </a>
       <header className="header">
         <div className="header__content">
-          <a href="/success" className="home">Garden Wiki</a>
+          <a href="/home" className="home">Garden Wiki</a>
         </div>
         <div className="header__content">
           <nav className="nav">

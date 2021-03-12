@@ -15,8 +15,8 @@ export default function Routes() {
         <Route path="/login">
           <View view="login" title="Log In" />
         </Route>
-        <Route path="/success">
-          <View view="success" title="Welcome to Garden Wiki" />
+        <Route path="/home">
+          <View view="home" title="Welcome to Garden Wiki" />
         </Route>
         <Route path="/almanac">
           <View view="almanac" title="Old Farmer's Almanac" />
@@ -26,6 +26,9 @@ export default function Routes() {
         </Route>
         <Route path="/zone">
           <View view="zone" title="Find Your Zone" />
+        </Route>
+        <Route path="/success">
+          <View view="success" title="You have signed in!" />
         </Route>
       </Switch>
     </Router>

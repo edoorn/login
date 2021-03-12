@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 // Components
 import Password from "../common/Password";
 import Username from "../common/Username";
+import Dialog from "../common/Dialog";
 
 class Login extends React.Component {
   constructor() {
@@ -13,7 +14,8 @@ class Login extends React.Component {
     this.state = {
       passwordErrors: [],
       usernameError: false,
-      renderErrorBlock: false
+      renderErrorBlock: false,
+      showDialog: false
     };
 
     this.login = React.createRef();
@@ -21,9 +23,17 @@ class Login extends React.Component {
     this.password = React.createRef();
   }
 
-  complete = () => {
+  redirect = () => {
     this.props.history.push("/success");
+  }
 
+  complete = () => {
+    this.setState({
+      renderErrorBlock: false,
+      showDialog: true
+    }, () => {
+      this.login.current.reset();
+    });
   }
 
   renderErrorBlock = (type) => {
@@ -64,11 +74,7 @@ class Login extends React.Component {
     } else if (loginError) {
       this.renderErrorBlock("login");
     } else {
-      this.setState({
-        renderErrorBlock: false
-      }, () => {
-        this.complete();
-      });
+      this.complete();
     }
   };
 
@@ -81,6 +87,11 @@ class Login extends React.Component {
   render() {
     return (
       <div className="panel panel--form">
+
+        {this.state.showDialog &&
+          <Dialog parent={this} callback={this.redirect} />
+        }
+
         {this.state.renderErrorBlock &&
           <div id="login-form-error" tabIndex="-1" className="note error error--block">
             <p></p>

@@ -66,3 +66,13 @@ export function announce(text, mode) {
     liveRegion.innerText = text;
   }
 }
+
+/**
+ * focusable
+ * CSS selector for any HTML element that can receive keyboard focus
+ */
+ export const focusable = "a[href]:not([tabindex='-1']),area[href]:not([tabindex='-1']),\
+ input:not([disabled]):not([tabindex='-1']),select:not([disabled]):not([tabindex='-1']),\
+ textarea:not([disabled]):not([tabindex='-1']),button:not([disabled]):not([tabindex='-1']),\
+ iframe:not([tabindex='-1']),[tabindex]:not([tabindex='-1'])"
+ 

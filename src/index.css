@@ -126,3 +126,30 @@ p {
   border: 1px solid black;
   border-radius: 3px;
 }
+
+.dialog {
+  background-color: white;
+  padding: 30px;
+  min-width: 300px;
+  top: 100px;
+  left: 50vw;
+  transform: translateX(-50%);
+  border: 2px solid grey;
+  position: absolute;
+  opacity: 1!important;
+}
+
+.dialog__backdrop {
+  display: block;
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(127, 255, 212, 0.5);
+}
+
+.dialog__description {
+  margin-bottom: 20px;
+}
